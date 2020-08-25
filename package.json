@@ -1,0 +1,26 @@
+{
+  "name": "socialist_utiliy_bot",
+  "version": "1.0.0",
+  "description": "A Test",
+  "main": "bot.js",
+  "scripts": {
+    "test": "*test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "yes"
+  ],
+  "author": "Liquid Caesium#7376 (Brian Sng)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cpu-stat": "^2.0.1",
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "fs": "0.0.1-security",
+    "googleapis": "^59.0.0",
+    "quick.db": "^7.1.1"
+  }
+}
