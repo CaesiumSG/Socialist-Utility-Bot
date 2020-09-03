@@ -1,5 +1,5 @@
 {
-    "prefix": "c!",
+    "default_prefix": ";",
         "token": "token",
         "YOUTUBE_API_KEY": "AIzaSyDmCckJDuCBP_Qj9fRN4SGShMPRY2teUlU",
     "SOUNDCLOUD_CLIENT_ID": "Uuw09fS26DL4edeoggypcws8t6qYGiOv",

@@ -16,11 +16,24 @@
   "author": "Liquid Caesium#7376 (Brian Sng)",
   "license": "UNLICENSED",
   "dependencies": {
+    "better-sqlite3": "^7.1.0",
     "cpu-stat": "^2.0.1",
+    "discord-leveling": "^1.1.0",
     "discord.js": "^12.3.1",
+    "discord.js-commando": "^0.10.0",
+    "discord.js-pagination": "^1.0.2",
     "dotenv": "^8.2.0",
+    "eslint": "^7.7.0",
+    "eslint-config-google": "^0.14.0",
     "fs": "0.0.1-security",
     "googleapis": "^59.0.0",
-    "quick.db": "^7.1.1"
+    "humanize": "0.0.9",
+    "mathjs": "^7.2.0",
+    "node-fetch": "^2.6.0",
+    "parse-ms": "^2.1.0",
+    "quick.db": "^7.0.0-b21",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0",
+    "weather-js": "^2.0.0"
   }
 }

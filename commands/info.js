@@ -3,7 +3,7 @@ const os = require('os')
 const cpuStat = require("cpu-stat");
 
 module.exports = {
-name: "botinfo",
+name: "hostinfo",
 cooldown: 5,
 description: "get the bot info",
 execute (message, args)  {

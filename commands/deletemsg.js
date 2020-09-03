@@ -3,7 +3,7 @@ module.exports = {
 	description: 'Prune up to 99 messages.',
 	execute(message, args) {
 		console.log("see this?")
-		if (message.member.roles.cache.some(role => role.name === 'Owner'))
+		if (!message.member.hasPermission(`MANAGE_MESSAGES`) || !message.member.hasPermission(`ADMINISTRATOR`)) return message.channel.send(`NO PERMS GAY`)
 		{
 		const amount = parseInt(args[0]) + 1;
 

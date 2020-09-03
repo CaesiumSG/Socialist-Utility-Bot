@@ -2,6 +2,12 @@
 
 const Discord = require('discord.js');
 const discord = require('discord.js');
+const { Users, CurrencyShop } = require('./dbObjects');
+const { Op } = require('sequelize');
+const currency = new Discord.Collection();
+const PREFIX = '*';
+const default_prefix = '*'
+
 
 require('dotenv').config();
 
@@ -12,13 +18,13 @@ var db = require('quick.db');
 
 
 //constants
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 const TOKEN = ''; //stays here till i settle shit
 const CHANNEL = '747819586048622622';
 const config = require('./config.json');
 const { Client, MessageEmbed, Permissions, Collection } = require('discord.js');
 const { join } = require("path");
-
+const ms = require("ms");
 
 //declarations
 var client = new Discord.Client();
@@ -39,7 +45,7 @@ client.on('ready', async function() {
                 url: "https://discordapp.com/"
             }
         });
-          client.user.setStatus(`idle`)
+          client.user.setStatus(`busy`)
         }, 16000)
 });
 
@@ -59,32 +65,35 @@ client.on('error', function(err) {
     process.exit(1);
 });
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
+const commandFiles = fs.readdirSync(join(__dirname, "commands")).filter(file => file.endsWith(".js"));
 
 for (const file of commandFiles) {
-	const command = require(`./commands/${file}`);
-	client.commands.set(command.name, command);
+    const command = require(join(__dirname, "commands", `${file}`));
+    client.commands.set(command.name, command);
 }
+client.on("message", async message => {
 
-
-client.on('message', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
-
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-	const command = args.shift().toLowerCase();
-
-  if (!client.commands.has(command)) return;
+  if(message.author.bot) return;
   
-  
+  let prefix = await db.get(`prefix_${message.guild.id}`)
+  if(prefix === null) prefix = default_prefix;
 
-	try {
-		client.commands.get(command).execute(message, args);
-	} catch (error) {
-		console.error(error);
-		message.reply('there was an error trying to execute that command!');
-	}
-});
+  if(message.content.startsWith(prefix)) {
+      const args = message.content.slice(prefix.length).trim().split(/ +/);
+
+      const command = args.shift().toLowerCase();
+
+      if(!client.commands.has(command)) return;
+
+
+      try {
+          client.commands.get(command).run(client, message, args);
+
+      } catch (error){
+          console.error(error);
+      }
+  }
+})
 
 //message received
 client.on('message', function(message) {
@@ -273,7 +282,7 @@ client.on('messageDelete', async message => {
     
   await messages.array().reverse().forEach(m => {
     var x = m.createdAt.toString().split(' ')
-  fs.appendFile('messagebulkdelete.txt', `[${m.author.tag}], [#${m.channel.name}]: ["${m.content}"], created at [${x[0]} ${x[1]} ${x[2]} ${x[3]} ${x[4]}]\n\n`, function (err) {
+  fs.appendFile('Andreisgay.txt', `[${m.author.tag}], [#${m.channel.name}]: ["${m.content}"], created at [${x[0]} ${x[1]} ${x[2]} ${x[3]} ${x[4]}]\n\n`, function (err) {
     if (err) throw err;
     console.log('Saved!');
   });
@@ -287,9 +296,9 @@ client.on('messageDelete', async message => {
       .setTimestamp()
       await x.send(embed).catch()
     await x.send(`Here is the log file for the deleted messages: \n`).catch()
-    await x.send(({files: [{attachment:'messagebulkdelete.txt'}]})).catch()
+    await x.send(({files: [{attachment:'Andreisgay.txt'}]})).catch()
     
-    fs.unlink('messagebulkdelete.txt', function (err) {
+    fs.unlink('Andreisgay.txt', function (err) {
     if (err) throw err;
     console.log('File deleted!');
   });
@@ -345,13 +354,41 @@ client.on('messageDelete', async message => {
       
     }
     
+    let user = message.author;
+    db.add(`money_${message.guild.id}_${user.id}`, 1);
+    if(message.content.toLowerCase() === '!d bump' && message.channel.id === '749412341581611053') {
+      db.add(`money_${message.guild.id}_${user.id}`, 249);
+    }
+    if(message.channel.id === '749412341581611050' || '749412341581611051' || '749412342109831211' || '749412342109831210') {
+      db.add(`money_${message.guild.id}_${user.id}`, 4);
+    }
+
+
+    if(command === "unban"){
+      if(!message.member.hasPermission("BAN_MEMBERS")) {
+        return message.channel.send(`**${msg.author.username}**, You do not have perms to unban someone`)
+      }
+      
+      if(!message.guild.me.hasPermission("BAN_MEMBERS")) {
+        return message.channel.send(`**${msg.author.username}**, I do not have perms to unban someone`)
+      }
+      
+      let userID = args[0]
+        message.guild.fetchBans().then(bans=> {
+        if(bans.size == 0) return 
+        let bUser = bans.find(b => b.user.id == userID)
+        if(!bUser) return
+        message.guild.members.unban(bUser.user)
+  })
+      
+    ;}
       if (command === "conf") {
       if (!message.guild) return message.channel.send(`use this command in a server, not dm!`)
         if (!message.member.hasPermission(`MANAGE_CHANNELS`) || !message.member.hasPermission(`MANAGE_GUILD`)) return message.channel.send(`sorry, you need manage channels / manage guild permission to use this!`)
       var embed = new discord.MessageEmbed()
-      .setAuthor(`help`, message.guild.iconURL)
+      .setAuthor(`Socialist Utility Bot Config`, message.guild.iconURL)
       
-      .setTitle(`configuration for logging bot in ${message.guild.name}\n----------------------`)
+      .setTitle(`configuration settings for the ${message.guild.name}\n----------------------`)
       .setColor('RANDOM')
       var y = await db.get(`allenabled_${message.guild.id}`)
       if (y == 'enabled') {
@@ -453,7 +490,7 @@ client.on('messageDelete', async message => {
       await db.delete('emojidelete_' + message.guild.id)
        await db.delete('channelcreate_' + message.guild.id)
        await db.delete('channeldelete_' + message.guild.id)
-    message.channel.send(`done, cleared all cache for this server. type \`${prefix}help\` to setup again.`)
+    message.channel.send(`done, cleared all cache for this server. type \`${prefix}conf\` to setup again.`)
     }
   
     if (command == "disable") {
@@ -652,10 +689,58 @@ client.on('messageDelete', async message => {
 
 
 
+  var badWords = [
+    'Alt',
+    'Alts',
+    'alt account',
+  
+    'alt',
+    'alts',
+    'fuck',
+    'scam',
+    'scamming'
+  ];
+  
+  client.on('message', async message => {
 
 
-console.log('Logger v' + VERSION);
-console.log('A bot for Discord that logs moderator actions.\n');
+    //1 blacklisted words
+    let blacklisted = ['bannedWord1','bannedWord2,','bannedWord3','bannedWord4','bannedWord5','bannedWord6','bannedWord7','bannedWord8','bannedWord9','bannedWord10','bannedWord11'] //words
+  
+    //2 looking for words
+    let foundInText = false;
+    for (var i in badWords) { // loops through the blacklisted list
+      if (message.content.toLowerCase().includes(badWords[i].toLowerCase())) foundInText = true;
+    }
+    // checks casesensitive words
+  
+    //3 deletes and send message
+      if (foundInText) {
+        message.delete();
+        message.channel.send('<a:alert:749990857041510491> Blacklisted Word Detected <a:alert:749990857041510491>').then(msg => msg.delete({ timeout: 10000 }));
+        message.channel.send('Bot Eating Words goes brrrrr, u used a blacklisted word boi dont do it again <a:screaming_pepe:749990876352217109> ').then(msg => msg.delete({ timeout: 10000 }));
+        message.channel.send('Andre srsly stop giving urself all the roles').then(msg => msg.delete({ timeout: 10000 }));
+        message.channel.send('Also, Free gulag for 10 seconds').then(msg => msg.delete({ timeout: 10000 }));
+        let muterole = message.guild.roles.cache.find(role => role.name === "gulag");
+        const member = message.member; 
+        member.roles.add(muterole);
+        setTimeout( function () {
+          
+          member.roles.remove(muterole);
+          
+      }, (10000));
+    }
+  });
+
+
+
+
+
+
+
+
+  console.log('Logger v' + VERSION);
+console.log('A utility tool made by Liquid Caesium#7376.\n');
 
 console.log('----------------------------------------------');
 

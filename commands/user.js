@@ -1,7 +1,7 @@
 module.exports = {
 	name: "user-info",
 	cooldown: 4,
-	description: "user info",
+	description: "userinfo",
 	execute(message) {
 	   const guild = message.guild
 		const Discord = require('discord.js')
@@ -15,7 +15,7 @@ module.exports = {
 		{ name: 'name', value: `${message.author.username}`,  inline: true },
 		{ name: 'id', value: `${message.author.id}`,  inline: true },
 		{name: 'status', value: `${message.author.presence.status}`, inline: false},
-		{name: 'current activity', value: `trying to fix.... `, inline: false}
+		{name: 'current activity', value: `no`, inline: false}
 		
 	)
             .setTimestamp()      
