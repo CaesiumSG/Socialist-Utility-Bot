@@ -2,11 +2,14 @@
 
 const Discord = require('discord.js');
 const discord = require('discord.js');
-const { Users, CurrencyShop } = require('./dbObjects');
-const { Op } = require('sequelize');
+const Enmap = require("enmap");
 const currency = new Discord.Collection();
 const PREFIX = '*';
 const default_prefix = '*'
+
+const { sep } = require("path");
+const path = require("path");
+const { success, error, warning } = require("log-symbols")
 
 
 require('dotenv').config();
@@ -37,18 +40,21 @@ client.commands = new Discord.Collection();
 //bot is ready to start working, print status update to console
 client.on('ready', async function() {
     console.log('[META][INFO] Connected to Discord API Service');
-    setInterval(()=>{
-        client.user.setPresence({
-            game: {
-                name: 'Use f!help',
-                type: "Playing",
-                url: "https://discordapp.com/"
-            }
-        });
-          client.user.setStatus(`busy`)
-        }, 16000)
+    
 });
 
+client.on('ready', () => {
+  client.user.setStatus('dnd')
+  const playing = '*help | Stan Socialism! Bot coded by Caesium Addict#8653, DM him for help!'
+
+    client.user.setPresence({
+      activity: {
+        name: playing,
+        type: 0,
+        
+      },
+  });
+});
 //bot disconnected from Discord
 client.on('disconnected', function() {
     console.log('[META][WARN] Disconnected from Discord API Service. Attempting to reconnected...');
@@ -65,36 +71,65 @@ client.on('error', function(err) {
     process.exit(1);
 });
 
-const commandFiles = fs.readdirSync(join(__dirname, "commands")).filter(file => file.endsWith(".js"));
 
-for (const file of commandFiles) {
-    const command = require(join(__dirname, "commands", `${file}`));
-    client.commands.set(command.name, command);
-}
-client.on("message", async message => {
+client.commands = new discord.Collection();
+client.aliases = new discord.Collection();
 
-  if(message.author.bot) return;
-  
-  let prefix = await db.get(`prefix_${message.guild.id}`)
-  if(prefix === null) prefix = default_prefix;
-
-  if(message.content.startsWith(prefix)) {
-      const args = message.content.slice(prefix.length).trim().split(/ +/);
-
-      const command = args.shift().toLowerCase();
-
-      if(!client.commands.has(command)) return;
+fs.readdir("./events/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    const event = require(`./events/${file}`);
+    let eventName = file.split(".")[0];
+    client.on(eventName, event.bind(null, client));
+  });
+});
 
 
-      try {
-          client.commands.get(command).run(client, message, args);
+client.commands = new Enmap();
 
-      } catch (error){
-          console.error(error);
-      }
-  }
-})
+fs.readdir("./commands/Currency/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/Currency/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
+});
 
+fs.readdir("./commands/Fun/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/Fun/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
+});
+
+fs.readdir("./commands/Moderation/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/Moderation/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
+});
+
+fs.readdir("./commands/Utility/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/Utility/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`Attempting to load command ${commandName}`);
+    client.commands.set(commandName, props);
+  });
+});
 //message received
 client.on('message', function(message) {
     if(message.author.id != client.user.id) {
@@ -696,7 +731,7 @@ client.on('messageDelete', async message => {
   
     'alt',
     'alts',
-    'fuck',
+    
     'scam',
     'scamming'
   ];
@@ -738,8 +773,8 @@ client.on('messageDelete', async message => {
 
 
 
-
-  console.log('Logger v' + VERSION);
+  
+console.log('Logger v' + VERSION);
 console.log('A utility tool made by Liquid Caesium#7376.\n');
 
 console.log('----------------------------------------------');
