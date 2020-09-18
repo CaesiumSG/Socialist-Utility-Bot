@@ -3,13 +3,7 @@
 const Discord = require('discord.js');
 const discord = require('discord.js');
 const Enmap = require("enmap");
-const currency = new Discord.Collection();
-const PREFIX = '*';
-const default_prefix = '*'
 
-const { sep } = require("path");
-const path = require("path");
-const { success, error, warning } = require("log-symbols")
 
 
 require('dotenv').config();
@@ -22,12 +16,6 @@ var db = require('quick.db');
 
 //constants
 const VERSION = '1.1.0';
-const TOKEN = ''; //stays here till i settle shit
-const CHANNEL = '747819586048622622';
-const config = require('./config.json');
-const { Client, MessageEmbed, Permissions, Collection } = require('discord.js');
-const { join } = require("path");
-const ms = require("ms");
 
 //declarations
 var client = new Discord.Client();
@@ -93,7 +81,7 @@ fs.readdir("./commands/Currency/", (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/Currency/${file}`);
     let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
+    console.log(`[META][INFO] Init Currency command: ${commandName}`);
     client.commands.set(commandName, props);
   });
 });
@@ -104,7 +92,7 @@ fs.readdir("./commands/Fun/", (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/Fun/${file}`);
     let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
+    console.log(`[META][INFO] Init Fun commands ${commandName}`);
     client.commands.set(commandName, props);
   });
 });
@@ -115,7 +103,7 @@ fs.readdir("./commands/Moderation/", (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/Moderation/${file}`);
     let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
+    console.log(`[META][INFO] Init Moderation commands: ${commandName}`);
     client.commands.set(commandName, props);
   });
 });
@@ -126,7 +114,7 @@ fs.readdir("./commands/Utility/", (err, files) => {
     if (!file.endsWith(".js")) return;
     let props = require(`./commands/Utility/${file}`);
     let commandName = file.split(".")[0];
-    console.log(`Attempting to load command ${commandName}`);
+    console.log(`[META][INFO] Init Utility commands: ${commandName}`);
     client.commands.set(commandName, props);
   });
 });
@@ -738,9 +726,6 @@ client.on('messageDelete', async message => {
   
   client.on('message', async message => {
 
-
-    //1 blacklisted words
-    let blacklisted = ['bannedWord1','bannedWord2,','bannedWord3','bannedWord4','bannedWord5','bannedWord6','bannedWord7','bannedWord8','bannedWord9','bannedWord10','bannedWord11'] //words
   
     //2 looking for words
     let foundInText = false;
@@ -768,8 +753,25 @@ client.on('messageDelete', async message => {
   });
 
 
-
-
+  const { GiveawaysManager } = require('discord-giveaways');
+  client.giveawaysManager = new GiveawaysManager(client, {
+      storage: "./giveaways.json",
+      updateCountdownEvery: 1000,
+      default: {
+          botsCanWin: false,
+          embedColor: "#00FF00",
+          reaction: "755856104197587015"
+      }
+  });
+  // We now have a client.giveawaysManager property to manage our giveaways!
+  
+  client.giveawaysManager.on("giveawayReactionAdded", (giveaway, member, reaction) => {
+      console.log(`${member.user.tag} entered giveaway #${giveaway.messageID} (${reaction.emoji.name})`);
+  });
+  
+  client.giveawaysManager.on("giveawayReactionRemoved", (giveaway, member, reaction) => {
+      console.log(`${member.user.tag} unreact to giveaway #${giveaway.messageID} (${reaction.emoji.name})`);
+  });
 
 
 

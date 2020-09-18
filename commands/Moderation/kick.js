@@ -24,6 +24,8 @@ module.exports = {
 
         if(!reason) reason = 'Unspecified';
 
+        const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]);
+
         const dmembed = new Discord.MessageEmbed()
         .setTitle('Kick Notice.')
         .setColor('FF0000')

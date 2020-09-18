@@ -7,10 +7,12 @@
     "PREFIX": "c!",
     "PRUNING": false,
     "bot_age": 1,
-        "name": "CaesiumSGBot",
+        "name": "yes",
         "version": "1.8.1",
         "botadmin": ["726446962890506331", "739705621041119232", "none", "none"],
         "botowner": "573028065475690497",
-        "botmod": ["719362742808739963", "none", "none", "none"]
+        "botmod": ["719362742808739963", "none", "none", "none"],
+        "everyoneMention": false,
+        "hostedBy": true
         
-        }
+}
