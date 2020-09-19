@@ -20,6 +20,8 @@ fun commands,
 
 And much more! Type `*help` to get a full list of available commands
 
+Blacklisted word filter (manual rn so gotta make it a feature where u can add and remove bl words like quickdb)
+
 # Installation
 
 This bot is written to run on top of node.js. Please see https://nodejs.org/en/download/
