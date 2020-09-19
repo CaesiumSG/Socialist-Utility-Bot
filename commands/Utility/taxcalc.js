@@ -25,13 +25,13 @@ module.exports = {
        var tax = 0;
        var showtaxrate = (taxrate * 100);
 
-       if ((resp >= 0) && (resp <= 10000)) {
+       if ((resp >= 0) && (resp <= 20000)) {
            taxrate = 0;
            tax = 0;
            payplustax = resp;
            var showtaxrate = (taxrate * 100);
        }
-       else if((resp >= 10001) && (resp <= 50000)) {
+       else if((resp >= 20001) && (resp <= 50000)) {
         taxrate = 0.01;
         payplustax = Math.round((resp*(1+taxrate)));
         tax = Math.round((payplustax-resp));
@@ -44,13 +44,13 @@ module.exports = {
         var showtaxrate = Math.round((taxrate * 100));
        }
        else if((resp >= 500001) && (resp <= 1000000)) {
-        taxrate = 0.08;
+        taxrate = 0.05;
         payplustax = Math.round((resp*(1+taxrate)));
         tax = (payplustax-resp);
         var showtaxrate = Math.round((taxrate * 100));
        }
        else if(resp >= 1000001) {
-        taxrate = 0.10;
+        taxrate = 0.08;
         payplustax = Math.round((resp*(1+taxrate)));
         tax = (payplustax-resp);
         var showtaxrate = Math.round((taxrate * 100));

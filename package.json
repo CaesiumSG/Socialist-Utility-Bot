@@ -17,6 +17,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "better-sqlite3": "^7.1.1",
+    "canvas": "^2.6.1",
     "cpu-stat": "^2.0.1",
     "discord-giveaways": "^4.2.1",
     "discord-leveling": "^1.1.0",

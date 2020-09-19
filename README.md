@@ -45,7 +45,12 @@ To start the bot just run
 
 # FAQ
 1) Module is not found
+
 you likely need to update the node modules, try doing `npm install`, `npm update` or `npm install [the missing module]`
+
+2) cmd.run is not defined.
+
+Its a huge bug that i will fix after my exams so yea.
 
 
 # Updates

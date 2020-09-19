@@ -30,4 +30,6 @@ module.exports = (client, member, message) =>{
 		.addField("<@" + welcome + ">", "Please Welcome Our Comrade!");
 
 	channel.send(serverembed);
+
+	
 }
