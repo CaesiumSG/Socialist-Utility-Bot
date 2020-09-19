@@ -1,5 +1,4 @@
-.env
 node_modules/
-.gitignore
-json.sqlite
+.env
 giveaways.json
+json.sqlite
