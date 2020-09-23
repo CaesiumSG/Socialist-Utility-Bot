@@ -89,3 +89,5 @@ create a bat file to launch the bot
 Please check the GitHub issues page on this project. We get a lot of similar questions, and it is likely that yours has already been answered. And yes, prob need to roll those into an official FAQ.
 
 If you still need help, feel free to join us on [discord.](https://discord.gg/RzRhBCq)
+
+[![Run on Repl.it](https://repl.it/badge/github/CaesiumSG/Socialist-Utility-Bot)](https://repl.it/github/CaesiumSG/Socialist-Utility-Bot)
