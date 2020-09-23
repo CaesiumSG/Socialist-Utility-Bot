@@ -1,3 +1,5 @@
+[![Run on Repl.it](https://repl.it/badge/github/CaesiumSG/Socialist-Utility-Bot)](https://repl.it/github/CaesiumSG/Socialist-Utility-Bot)
+
 # Socialist-Utility-Bot
 
 
@@ -90,4 +92,3 @@ Please check the GitHub issues page on this project. We get a lot of similar que
 
 If you still need help, feel free to join us on [discord.](https://discord.gg/RzRhBCq)
 
-[![Run on Repl.it](https://repl.it/badge/github/CaesiumSG/Socialist-Utility-Bot)](https://repl.it/github/CaesiumSG/Socialist-Utility-Bot)
