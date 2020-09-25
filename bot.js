@@ -25,6 +25,17 @@ client.commands = new Discord.Collection();
 // Event Handlers
 //
 
+
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+
+
+
 //bot is ready to start working, print status update to console
 client.on('ready', async function() {
     console.log('[META][INFO] Connected to Discord API Service');
@@ -800,7 +811,7 @@ client.on('messageDelete', async message => {
     ctx.strokeStyle = '#74037b';
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
   
-    ctx.font = '28px comic-sans';
+    ctx.font = '28px sans-serif';
     ctx.fillStyle = '#ffffff';
     ctx.fillText('Welcome to the server,', canvas.width / 2.5, canvas.height / 3.5);
   

@@ -4,7 +4,7 @@ module.exports = {
     name: "sourcecode",
     cooldown: 5,
     description: "bot source code",
-    execute (message) {
+    async run (client, message, args) {
     const exampleEmbed = new Discord.MessageEmbed()
             .setTitle('source code')
             .setColor('RANDOM')

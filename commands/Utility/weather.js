@@ -3,7 +3,7 @@ const weather = require("weather-js")
 
 module.exports = {
 
-    execute(client, message, args) {
+    async run (client, message, args) {
 
     weather.find({search: args.join(" "), degreeType: "C"}, function(err, result) {
         if(err) message.channel.send(err)

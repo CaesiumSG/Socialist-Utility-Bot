@@ -1,8 +1,7 @@
 module.exports = {
      name: 'lock-channel',
      description: 'lock a channel',
-   
-     execute(message) {
+   async run (client, message, args) {
    if (!message.member.hasPermission("MANAGE_CHANNELS")) return message.reply('you need the permission ``MANAGE_CHANNELS`for this command')
    if(!message.guild.me.hasPermission("MANAGE_CHANNELS")) return message.reply("I need the permission ``MANAGE_CHANNELS`` for this command")
    const channel = message.channel

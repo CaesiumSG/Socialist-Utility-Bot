@@ -3,7 +3,7 @@ module.exports = {
     cooldown: 10,
     usage: '[user tag], [nick]',
     description: "change someone nick",
-    execute(message, args){
+    async run (client, message, args) {
     if(!message.guild.me.hasPermission("MANAGE_NICKNAMES")) { return message.reply("I need the permission ``MANAGE_NICKNAMES`` for this command")
 }	 
         if (message.member.hasPermission("MANAGE_NICKNAMES")) {

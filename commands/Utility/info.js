@@ -1,7 +1,11 @@
 const { version } = require("discord.js");
 require("moment-duration-format");
 const moment = require("moment");
-exports.run = (client, message) =>{
+module.exports = {
+    name: "info",
+    description: "The help command, what do you expect?",
+
+    async run (client, message, args){
             const duration = moment.duration(client.uptime).format(" D [days], H [hrs], m [mins], s [secs]");
             message.channel.send(`= STATISTICS =
 • Mem Usage  :: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB
@@ -10,5 +14,5 @@ exports.run = (client, message) =>{
 • Servers    :: ${client.guilds.size.toLocaleString()}
 • Channels   :: ${client.channels.size.toLocaleString()}
 • Node       :: ${process.version}`, {code: "asciidoc"});
-
+    }
 }

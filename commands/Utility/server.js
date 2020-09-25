@@ -5,9 +5,9 @@
  name: "server",
 	cooldown: 4,
     description: "server info",
-    execute(message) {
+    async run (client, message, args) {
     	
-    	const client = message.client
+
         const Discord = require('discord.js');
         const guild = message.guild
  let footeri = guild.iconURL()
