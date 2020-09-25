@@ -18,6 +18,7 @@
   "dependencies": {
     "better-sqlite3": "^7.1.1",
     "canvas": "^2.6.1",
+    "date-and-time": "^0.14.1",
     "discord-giveaways": "^4.2.1",
     "discord.js": "^12.3.1",
     "discord.js-pagination": "^1.0.2",
@@ -27,6 +28,7 @@
     "eslint-config-google": "^0.14.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "hastebin": "^0.2.1",
     "mathjs": "^7.2.0",
     "moment": "^2.29.0",
     "moment-duration-format": "^2.3.2",
@@ -34,6 +36,7 @@
     "node-fetch": "^2.6.1",
     "parse-ms": "^2.1.0",
     "quick.db": "^7.1.1",
+    "randomstring": "^1.1.5",
     "weather-js": "^2.0.0"
   }
 }

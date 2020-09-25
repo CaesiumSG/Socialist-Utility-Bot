@@ -129,6 +129,20 @@ fs.readdir("./commands/Utility/", (err, files) => {
     client.commands.set(commandName, props);
   });
 });
+
+
+fs.readdir("./commands/Ticket/", (err, files) => {
+  if (err) return console.error(err);
+  files.forEach(file => {
+    if (!file.endsWith(".js")) return;
+    let props = require(`./commands/Ticket/${file}`);
+    let commandName = file.split(".")[0];
+    console.log(`[META][INFO] Init Ticket command: ${commandName}`);
+    client.commands.set(commandName, props);
+  });
+});
+
+
 //message received
 client.on('message', function(message) {
     if(message.author.id != client.user.id) {
