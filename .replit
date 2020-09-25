@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+=======
+language = "nodejs"
+>>>>>>> origin/master
 run = "node bot.js"
