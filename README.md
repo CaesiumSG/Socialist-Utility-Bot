@@ -8,6 +8,8 @@
 
 A all in 1 tool modular bot for socialist users
 
+ALERT: TICKET SYSTEM IS BROKEN I DONT HAVE TIME TO FIX IT SO ITS NOT WOKRING RN
+
 Prefix: *
 
 
