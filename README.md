@@ -1,5 +1,5 @@
 [![Run on Repl.it](https://repl.it/badge/github/CaesiumSG/Socialist-Utility-Bot)](https://repl.it/github/CaesiumSG/Socialist-Utility-Bot)
-
+[![Discord Chat](https://img.shields.io/discord/749412340780236851.svg)](https://discord.gg/)
 # Socialist-Utility-Bot
 
 
