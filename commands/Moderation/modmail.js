@@ -7,7 +7,6 @@ module.exports = {
     async run (client, message, args) {
 
         if(!message.member.hasPermission("MANAGE_GUILD")) return message.channel.send('You can\'t use that jimbo')
-        if(!message.guild.me.hasPermission("MANAGE_GUILD")) return message.channel.send('I don\'t have the right permissions.')
 
         const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
 
